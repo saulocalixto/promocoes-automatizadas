@@ -2,7 +2,7 @@
 
 namespace Servico
 {
-    public class Class1
+    public class Servico
     {
     }
 }
