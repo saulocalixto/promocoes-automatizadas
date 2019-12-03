@@ -10,9 +10,20 @@ namespace ProjetoFinalPromocoes.Controllers
         [HttpGet]
         public object Get(int mes)
         {
-            var repo = new Repositorio();
+            var repo = new RepositorioPromocao();
 
-            return new { ProdutoMaisVendido = repo.Get(mes) };
+            return new { ProdutoMaisVendido = repo.GetProdutoMaisVendido(mes) };
+        }
+
+        [HttpGet("PorMes")]
+        public object GetPromocaoPorMes(string produto, int mes)
+        {
+            var repo = new RepositorioPromocao();
+            return new
+            {
+                Produto = produto,
+                Sugestao = repo.GetSugestaoDePromocao(produto, mes)
+            };
         }
     }
 }
