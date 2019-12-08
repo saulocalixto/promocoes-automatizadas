@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Servico;
+using System;
 
 namespace ProjetoFinalPromocoes.Controllers
 {
@@ -23,6 +24,28 @@ namespace ProjetoFinalPromocoes.Controllers
             {
                 Produto = produto,
                 Sugestao = repo.GetSugestaoDePromocao(produto, mes)
+            };
+        }
+
+        [HttpGet("PorDia")]
+        public object GetPromocaoPorDia(string produto, int mes, int dia)
+        {
+            var repo = new RepositorioPromocao();
+
+            if (mes > 12 || mes < 1)
+            {
+                throw new Exception("Mês deve estar entre 1 e 12.");
+            }
+
+            if (dia > 31 || dia < 1)
+            {
+                throw new Exception("Dia deve estar entre 1 e 31.");
+            }
+
+            return new
+            {
+                Produto = produto,
+                Sugestao = repo.GetSugestaoDePromocao(produto, mes, dia)
             };
         }
     }
