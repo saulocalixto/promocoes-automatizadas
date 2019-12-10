@@ -6,7 +6,7 @@
 
         public Conexao()
         {
-            stringConexao = "Server=35.223.250.164;Port=3306;User ID=admin;Password=admin;Database=ecommerce;AllowPublicKeyRetrieval=True";
+            stringConexao = "Server=ecommercedb.sifo.tech;Port=3306;User ID=admin;Password=admin;Database=ecommerce;AllowPublicKeyRetrieval=True";
         }
     }
 }

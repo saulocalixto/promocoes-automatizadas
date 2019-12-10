@@ -94,7 +94,7 @@ namespace Servico
             if (totalDeVendas == 0)
                 return -1;
 
-            float media = totalDeVendas / diasDoMes;
+            float media = (float)totalDeVendas / diasDoMes;
             float coeficienteDeSugestao = (float)Math.Round(quantidadeVendas[dia - 1] / media, 2);
             if (coeficienteDeSugestao > 1)
                 coeficienteDeSugestao = 1;
