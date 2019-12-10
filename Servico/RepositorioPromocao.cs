@@ -28,6 +28,14 @@ namespace Servico
             return id;
         }
 
+        /// <summary>
+        /// Calcula um coeficiente que define o quão provável uma promoção de um determinado produto deveria ser feita
+        /// baseado na média de vendas daquele produto. Quanto maior o coeficiente, maior a recomendação de se fazee
+        /// a promoção.
+        /// </summary>
+        /// <param name="produto">ID do Produto</param>
+        /// <param name="mes">Mês desejado (entre 1 e 12)</param>
+        /// <returns>Coeficiente com valor entre 0 e 1</returns>
         public float GetSugestaoDePromocao(string produto, int mes)
         {
             int[] quantidadeVendas = new int[12];
@@ -56,14 +64,31 @@ namespace Servico
             if (totalDeVendas == 0)
                 return -1;
 
-            float media = totalDeVendas / 12f;
-            float coeficienteDeSugestao = (float)Math.Round(quantidadeVendas[mes - 1] / media, 2);
-            if (coeficienteDeSugestao > 1)
-                coeficienteDeSugestao = 1;
+            float coeficienteDeSugestao;
+            try
+            {
+                float media = totalDeVendas / 12f;
+                coeficienteDeSugestao = (float)Math.Round(quantidadeVendas[mes - 1] / media, 2);
+                if (coeficienteDeSugestao > 1)
+                    coeficienteDeSugestao = 1;
+            }
+            catch
+            {
+                return -1;
+            }
 
             return 1 - coeficienteDeSugestao;
         }
 
+        /// <summary>
+        /// Calcula um coeficiente que define o quão provável uma promoção de um determinado produto deveria ser feita
+        /// baseado na média de vendas daquele produto. Quanto maior o coeficiente, maior a recomendação de se fazee
+        /// a promoção.
+        /// </summary>
+        /// <param name="produto">ID do Produto</param>
+        /// <param name="mes">Mês desejado (entre 1 e 12)</param>
+        /// <param name="dia">Dia desejado (entre 1 e 31, a depender do mês)</param>
+        /// <returns>Coeficiente com valor entre 0 e 1</returns>
         public float GetSugestaoDePromocao(string produto, int mes, int dia)
         {
             int totalDeVendas = 0;
@@ -94,10 +119,19 @@ namespace Servico
             if (totalDeVendas == 0)
                 return -1;
 
-            float media = (float)totalDeVendas / diasDoMes;
-            float coeficienteDeSugestao = (float)Math.Round(quantidadeVendas[dia - 1] / media, 2);
-            if (coeficienteDeSugestao > 1)
-                coeficienteDeSugestao = 1;
+            float coeficienteDeSugestao;
+            try
+            {
+                float media = (float)totalDeVendas / diasDoMes;
+                coeficienteDeSugestao = (float)Math.Round(quantidadeVendas[dia - 1] / media, 2);
+                if (coeficienteDeSugestao > 1)
+                    coeficienteDeSugestao = 1;
+            }
+            catch
+            {
+                return -1;
+            }
+
 
             return 1 - coeficienteDeSugestao;
         }

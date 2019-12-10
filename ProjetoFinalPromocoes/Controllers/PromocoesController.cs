@@ -19,7 +19,13 @@ namespace ProjetoFinalPromocoes.Controllers
         [HttpGet("PorMes")]
         public object GetPromocaoPorMes(string produto, int mes)
         {
+            if (mes > 12 || mes < 1)
+            {
+                throw new Exception("Mês deve estar entre 1 e 12.");
+            }
+
             var repo = new RepositorioPromocao();
+
             return new
             {
                 Produto = produto,
@@ -30,7 +36,6 @@ namespace ProjetoFinalPromocoes.Controllers
         [HttpGet("PorDia")]
         public object GetPromocaoPorDia(string produto, int mes, int dia)
         {
-            var repo = new RepositorioPromocao();
 
             if (mes > 12 || mes < 1)
             {
@@ -41,6 +46,8 @@ namespace ProjetoFinalPromocoes.Controllers
             {
                 throw new Exception("Dia deve estar entre 1 e 31.");
             }
+
+            var repo = new RepositorioPromocao();
 
             return new
             {
